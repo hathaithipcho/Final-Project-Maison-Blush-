@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Blush — Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}</style>
+</head>
+<body class="fade-in">
+<canvas id="petalCanvas"></canvas>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header"><h3>🛒 ตะกร้าสินค้า</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div></div>
+  <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
+    <div class="cart-total"><span class="cart-total-label">ยอดรวมทั้งหมด</span><span class="cart-total-amount" id="cartTotal">฿0</span></div>
+    <button class="checkout-btn" onclick="goToCheckout()">
+  ยืนยันคำสั่งซื้อ
+</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()">Home</a>
+  <a href="collection.html" onclick="closeMobileNav()">Collection</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
+  <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
+  <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+</div>
+
+<header>
+  <a class="logo" href="index.html">
+  <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+  Maison Blush
+  <nav id="desktopNav">
+    <a href="index.html">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="nav-active">Contact</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="support.html">Customer Support</a>
+    <a href="team.html">ผู้จัดทำ</a>
+  </nav>
+  <div class="header-actions">
+    <button class="cart-icon-btn" onclick="openCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ═══ CONTACT — ช่องทางติดต่อ ═══ -->
+<section class="support" id="contact" style="padding-top:120px;min-height:80vh">
+  <div class="section-label reveal" style="text-align:center">— ติดต่อเรา —</div>
+  <h2 class="section-title reveal" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:400;">Contact Us</h2>
+  <div class="divider-botanical reveal" style="justify-content:center;margin-bottom:50px">
+  </div>
+
+<div style="max-width:680px;margin:0 auto">
+  <div class="contact-card reveal" style="margin-bottom:30px">
+    <h3>ช่องทางติดต่อ Maison Blush</h3>
+
+<div class="contact-item">
+  <div class="contact-icon">
+    <img src="pic/chat.jpg" alt="chat">
+  </div>
+  <div class="contact-info">
+    <div class="contact-label">Live Chat</div>
+    <div class="contact-value">10:00 – 18:00 น.</div>
+  </div>
+</div>
+
+<div class="contact-item">
+  <div class="contact-icon">
+    <img src="pic/gmail.jpg" alt="email">
+  </div>
+  <div class="contact-info">
+    <div class="contact-label">อีเมล</div>
+    <div class="contact-value">maisonblush@gmail.com</div>
+  </div>
+</div>
+
+<div class="contact-item">
+  <div class="contact-icon">
+    <img src="pic/phone.jpg" alt="phone">
+  </div>
+  <div class="contact-info">
+    <div class="contact-label">โทรศัพท์</div>
+    <div class="contact-value">02-XXX-XXXX</div>
+  </div>
+</div>
+
+<div class="contact-item">
+  <div class="contact-icon">
+    <img src="pic/line.jpg" alt="line">
+  </div>
+  <div class="contact-info">
+    <div class="contact-label">LINE Official</div>
+    <div class="contact-value">@maisonblush</div>
+  </div>
+</div>
+
+<div class="contact-item">
+  <div class="contact-icon">
+    <img src="pic/location.jpg" alt="location">
+  </div>
+  <div class="contact-info">
+    <div class="contact-label">ที่อยู่</div>
+    <div class="contact-value">123 Maison Blush, Bangkok 10110, Thailand</div>
+  </div>
+</div>
+
+<div class="contact-item" style="border:none">
+  <div class="contact-icon">
+    <img src="pic/time.jpg" alt="time">
+  </div>
+  <div class="contact-info">
+    <div class="contact-label">เวลาทำการ</div>
+    <div class="contact-value">จันทร์ – ศุกร์: 10:00 – 18:00 น.</div>
+  </div>
+</div>
+
+    <!-- Contact Form -->
+   <div class="review-form-wrap reveal">
+  <h3 class="review-form-title">ส่งข้อความหาเรา</h3>
+
+  <div class="form-group">
+    <label>ชื่อของคุณ</label>
+    <input type="text" id="contactName" class="form-input" placeholder="ชื่อ-นามสกุล">
+  </div>
+
+  <div class="form-group">
+    <label>อีเมล</label>
+    <input type="email" id="contactEmail" class="form-input" placeholder="your@email.com">
+  </div>
+
+  <div class="form-group">
+    <label>หัวข้อ</label>
+    <select id="contactTopic" class="form-input">
+      <option value="">เลือกหัวข้อ</option>
+      <option>สอบถามสินค้า</option>
+      <option>ติดตามคำสั่งซื้อ</option>
+      <option>คืนสินค้า/เปลี่ยนสินค้า</option>
+      <option>ข้อเสนอแนะ</option>
+      <option>อื่นๆ</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>ข้อความ</label>
+    <textarea id="contactMessage" class="form-textarea"
+      placeholder="พิมพ์ข้อความของคุณที่นี่..." style="height:130px"></textarea>
+  </div>
+
+  <button class="submit-review" onclick="submitContact()">
+    ส่งข้อความ ✿
+  </button>
+
+</div>
+</section>
+
+<footer>
+  <svg class="footer-vine" viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 Q100,10 200,35 Q300,58 400,30 Q500,5 600,32 Q700,58 800,28 Q900,5 1000,34 Q1100,58 1200,38" stroke="#b8d4ae" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="600" cy="32" r="5" fill="#f9dde2" opacity="0.7"/>
+  </svg>
+  <div class="logo footer-logo">Maison Blush</div>
+  <p>© 2026 Maison Blush. All rights reserved.</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

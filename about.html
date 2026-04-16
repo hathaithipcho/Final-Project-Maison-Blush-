@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Blush — About</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}
+a.logo::after { display:none!important; }
+</style>
+</head>
+<body class="fade-in">
+
+<canvas id="petalCanvas"></canvas>
+
+<svg class="corner-botanical tl" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+  <path d="M30,280 Q40,220 35,170 Q30,120 50,80 Q65,50 55,20" stroke="#8fad88" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M38,200 Q20,185 10,170" stroke="#8fad88" stroke-width="1.5" fill="none"/>
+  <ellipse cx="8" cy="168" rx="14" ry="7" fill="#a8c89e" opacity="0.75" transform="rotate(-30 8 168)"/>
+  <g transform="translate(50,22)">
+    <ellipse cx="0" cy="0" rx="18" ry="9" fill="#f3b8c4" opacity="0.8" transform="rotate(-20)"/>
+    <circle cx="1" cy="-8" r="5" fill="#e07f98" opacity="0.7"/>
+  </g>
+</svg>
+<svg class="corner-botanical tr" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+  <path d="M170,280 Q160,220 165,170 Q170,120 150,80 Q135,50 145,20" stroke="#8fad88" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M162,200 Q180,185 190,170" stroke="#8fad88" stroke-width="1.5" fill="none"/>
+  <ellipse cx="192" cy="168" rx="14" ry="7" fill="#a8c89e" opacity="0.75" transform="rotate(30 192 168)"/>
+  <g transform="translate(150,22)">
+    <ellipse cx="0" cy="0" rx="18" ry="9" fill="#f9dde2" opacity="0.8" transform="rotate(20)"/>
+    <circle cx="-1" cy="-8" r="5" fill="#e4a0b2" opacity="0.7"/>
+  </g>
+</svg>
+<svg class="corner-botanical bl" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10,200 Q15,150 20,120 Q25,95 18,70" stroke="#9ab892" stroke-width="2" fill="none" opacity="0.6"/>
+  <ellipse cx="40" cy="155" rx="18" ry="7" fill="#a8c89e" opacity="0.4" transform="rotate(-25 40 155)"/>
+</svg>
+<svg class="corner-botanical br" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+  <path d="M210,200 Q205,150 200,120 Q195,95 202,70" stroke="#9ab892" stroke-width="2" fill="none" opacity="0.6"/>
+  <ellipse cx="180" cy="155" rx="18" ry="7" fill="#a8c89e" opacity="0.4" transform="rotate(25 180 155)"/>
+</svg>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 ตะกร้าสินค้า</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div>
+  </div>
+  <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
+    <div class="cart-total">
+      <span class="cart-total-label">ยอดรวมทั้งหมด</span>
+      <span class="cart-total-amount" id="cartTotal">฿0</span>
+    </div>
+<button class="checkout-btn" onclick="goToCheckout()">
+  ยืนยันคำสั่งซื้อ
+</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()">Home</a>
+  <a href="collection.html" onclick="closeMobileNav()">Collection</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
+  <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
+  <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+</div>
+
+<header>
+  <a class="logo" href="index.html">
+    <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+    Maison Blush
+  </a>  
+  <nav id="desktopNav"> 
+    <a href="index.html">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="about.html" class="nav-active">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="support.html">Customer Support</a>
+    <a href="team.html">ผู้จัดทำ</a>
+  </nav>
+  <div class="header-actions">
+    <button class="cart-icon-btn" onclick="openCart()" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="openMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="about" id="about">
+  <div class="about-arch">
+    <svg viewBox="0 0 900 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,120 Q30,80 60,60 Q90,40 80,10" stroke="#9ab892" stroke-width="2" fill="none" opacity="0.5"/>
+      <ellipse cx="45" cy="70" rx="18" ry="7" fill="#a8c89e" opacity="0.4" transform="rotate(-30 45 70)"/>
+      <g transform="translate(62,55)">
+        <circle cx="0" cy="-5" r="5" fill="#f9dde2" opacity="0.75"/>
+        <circle cx="5" cy="2" r="5" fill="#f9dde2" opacity="0.7"/>
+        <circle cx="-5" cy="2" r="5" fill="#f9dde2" opacity="0.7"/>
+        <circle cx="0" cy="0" r="3" fill="#e8aeb7" opacity="0.85"/>
+      </g>
+      <path d="M900,120 Q870,80 840,60 Q810,40 820,10" stroke="#9ab892" stroke-width="2" fill="none" opacity="0.5"/>
+      <ellipse cx="855" cy="70" rx="18" ry="7" fill="#a8c89e" opacity="0.4" transform="rotate(30 855 70)"/>
+      <g transform="translate(838,55)">
+        <circle cx="0" cy="-5" r="5" fill="#f9dde2" opacity="0.75"/>
+        <circle cx="5" cy="2" r="5" fill="#f9dde2" opacity="0.7"/>
+        <circle cx="-5" cy="2" r="5" fill="#f9dde2" opacity="0.7"/>
+        <circle cx="0" cy="0" r="3" fill="#e8aeb7" opacity="0.85"/>
+      </g>
+      <path d="M120,20 Q200,60 300,30 Q450,0 600,30 Q700,60 780,20" stroke="#b8d4ae" stroke-width="1.5" fill="none" opacity="0.45"/>
+      <circle cx="450" cy="8" r="5" fill="#f9dde2" opacity="0.7"/>
+    </svg>
+  </div>
+  <div class="about-inner">
+    <div class="about-deco-left reveal-left">
+      <svg viewBox="0 0 100 240" xmlns="http://www.w3.org/2000/svg" width="100" height="240">
+        <path d="M50,235 Q45,190 50,155 Q55,115 46,80 Q38,48 50,12" stroke="#8fad88" stroke-width="2" fill="none"/>
+        <path d="M49,170 Q22,155 10,140" stroke="#8fad88" stroke-width="1.2" fill="none"/>
+        <path d="M48,110 Q76,96 90,84" stroke="#8fad88" stroke-width="1.2" fill="none"/>
+        <ellipse cx="8" cy="138" rx="22" ry="9" fill="#a8c89e" opacity="0.55" transform="rotate(-30 8 138)"/>
+        <ellipse cx="92" cy="82" rx="20" ry="8" fill="#b8d4ae" opacity="0.5" transform="rotate(22 92 82)"/>
+        <g transform="translate(50,14)">
+          <ellipse cx="0" cy="0" rx="20" ry="10" fill="#f3b8c4" opacity="0.78" transform="rotate(-18)"/>
+          <ellipse cx="5" cy="-5" rx="17" ry="9" fill="#edaabb" opacity="0.72" transform="rotate(22)"/>
+          <circle cx="1" cy="-10" r="5" fill="#d87088" opacity="0.75"/>
+        </g>
+      </svg>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label">— Our Story —</div>
+      <h2>About This Project</h2>
+    <p>เว็บไซต์ Maison Blush จัดทำขึ้นเพื่อเป็นส่วนหนึ่งของโครงงานในรายวิชา “พัฒนาเว็บไซต์เบื้องต้น” <br>โดยนักศึกษากลุ่มนี้ได้ออกแบบและพัฒนาร่วมกันด้วยความตั้งใจ <br>ทั้งนี้ เว็บไซต์นี้เป็นเพียงผลงานเพื่อการศึกษาเท่านั้น ไม่มีวัตถุประสงค์เชิงพาณิชย์<br> และไม่ได้มีการจำหน่ายสินค้าหรือให้บริการจริงแต่อย่างใด จัดทำขึ้นเพื่อส่งประกอบการเรียน<br>และการประเมินผลในรายวิชาเท่านั้น</p>
+      <div class="about-quote">" Scent is the memory we choose to create. "</div>
+      <div class="about-mist">
+        <span class="mist-dot md1"></span><span class="mist-dot md2"></span>
+        <span class="mist-dot md3"></span><span class="mist-dot md4"></span><span class="mist-dot md5"></span>
+      </div>
+    </div>
+    <div class="about-deco-right reveal-right">
+      <svg viewBox="0 0 100 240" xmlns="http://www.w3.org/2000/svg" width="100" height="240">
+        <path d="M50,235 Q55,190 50,155 Q45,115 54,80 Q62,48 50,12" stroke="#8fad88" stroke-width="2" fill="none"/>
+        <path d="M51,170 Q78,155 90,140" stroke="#8fad88" stroke-width="1.2" fill="none"/>
+        <path d="M52,110 Q24,96 10,84" stroke="#8fad88" stroke-width="1.2" fill="none"/>
+        <ellipse cx="92" cy="138" rx="22" ry="9" fill="#a8c89e" opacity="0.55" transform="rotate(30 92 138)"/>
+        <ellipse cx="8" cy="82" rx="20" ry="8" fill="#b8d4ae" opacity="0.5" transform="rotate(-22 8 82)"/>
+        <g transform="translate(50,14)">
+          <ellipse cx="0" cy="0" rx="20" ry="10" fill="#fde0e8" opacity="0.78" transform="rotate(18)"/>
+          <ellipse cx="-5" cy="-5" rx="17" ry="9" fill="#f8d0dc" opacity="0.72" transform="rotate(-22)"/>
+          <circle cx="-1" cy="-10" r="5" fill="#e4a0ae" opacity="0.75"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg class="footer-vine" viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 Q100,10 200,35 Q300,58 400,30 Q500,5 600,32 Q700,58 800,28 Q900,5 1000,34 Q1100,58 1200,38" stroke="#b8d4ae" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="600" cy="32" r="5" fill="#f9dde2" opacity="0.7"/>
+  </svg>
+  <div class="logo footer-logo">Maison Blush</div>
+  <p>© 2026 Maison Blush. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

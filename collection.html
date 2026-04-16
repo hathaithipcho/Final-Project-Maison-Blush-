@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Blush — Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}
+
+.bottle-wrap {
+  width:100%; height:210px; display:flex; align-items:center; justify-content:center;
+  position:relative; border-radius:18px; margin-bottom:18px; overflow:hidden;
+}
+.bottle-aura {
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+}
+.bottle-wrap img {
+  position:relative; z-index:1;
+  height:180px; object-fit:contain;
+  filter:drop-shadow(0 14px 32px rgba(0,0,0,0.13));
+  transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+.card:hover .bottle-wrap img { transform:scale(1.08) translateY(-8px); }
+.card:hover .bottle-aura { transform:scale(1.15); }
+.bottle-aura { transition:transform 0.4s ease; }
+
+.float-petal { position:absolute; font-size:13px; animation:fp 5s ease-in-out infinite; pointer-events:none; z-index:2; }
+.fp1{top:12px;left:14px;animation-delay:0s} .fp2{top:8px;right:16px;animation-delay:-1.5s;} .fp3{bottom:14px;left:20px;animation-delay:-3s;}
+@keyframes fp{0%,100%{transform:translateY(0) rotate(-8deg);opacity:.5}50%{transform:translateY(-8px) rotate(8deg);opacity:.9}}
+
+.note-bar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.note{font-size:9px;letter-spacing:1px;padding:3px 9px;border-radius:20px;border:1px solid currentColor;opacity:.8;}
+.note-top{color:#e8aeb7;background:rgba(243,198,206,.2);}
+.note-mid{color:#8fad88;background:rgba(168,200,158,.2);}
+.note-base{color:#b8a080;background:rgba(200,176,144,.2);}
+
+.bestseller-section { margin-bottom:20px; }
+.bestseller-label {
+  text-align:center; font-family:'Cormorant Garamond',serif; font-size:13px;
+  letter-spacing:6px; color:#e8aeb7; text-transform:uppercase; margin-bottom:12px;
+  display:flex; align-items:center; justify-content:center; gap:14px;
+}
+.bestseller-label::before,.bestseller-label::after{
+  content:'';display:inline-block;width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,#f3c6ce,transparent);
+}
+.sub-section-label {
+  text-align:center; font-family:'Cormorant Garamond',serif; font-size:13px;
+  letter-spacing:5px; color:#8fad88; text-transform:uppercase; margin:50px 0 20px;
+  display:flex; align-items:center; justify-content:center; gap:14px;
+}
+.sub-section-label::before,.sub-section-label::after{
+  content:'';display:inline-block;width:50px;height:1px;
+  background:linear-gradient(90deg,transparent,#a8c89e,transparent);
+}
+</style>
+</head>
+<body class="fade-in">
+<canvas id="petalCanvas"></canvas>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header"><h3>🛒 ตะกร้าสินค้า</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div></div>
+  <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
+    <div class="cart-total"><span class="cart-total-label">ยอดรวมทั้งหมด</span><span class="cart-total-amount" id="cartTotal">฿0</span></div>
+<button class="checkout-btn" onclick="goToCheckout()">
+ยืนยันคำสั่งซื้อ
+</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()">Home</a>
+  <a href="collection.html" onclick="closeMobileNav()">Collection</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
+  <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
+  <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+</div>
+
+<header>
+  <a class="logo" href="index.html">
+  <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+  Maison Blush
+  </a>
+  <nav id="desktopNav">
+    <a href="index.html">Home</a>
+    <a href="collection.html" class="nav-active">Collection</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="support.html">Customer Support</a>
+    <a href="team.html">ผู้จัดทำ</a>
+  </nav>
+  <div class="header-actions">
+    <button class="cart-icon-btn" onclick="openCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="collection" id="collection">
+  <div class="section-label reveal">— Our Fragrances —</div>
+<div class="title-img-wrap reveal">
+  <img src="pic/Collection.png" alt="Our Collection" class="title-img">
+</div>
+
+  <div class="filter-bar reveal">
+    <div class="filter-group">
+      <label>ราคา</label>
+      <select class="filter-select" id="filterPrice" onchange="applyFilters()">
+        <option value="">ทุกราคา</option>
+        <option value="0-1300">ต่ำกว่า ฿1,300</option>
+        <option value="1300-1500">฿1,300 – ฿1,500</option>
+        <option value="1500-9999">มากกว่า ฿1,500</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>ขนาด (ml)</label>
+      <select class="filter-select" id="filterSize" onchange="applyFilters()">
+        <option value="">ทุกขนาด</option>
+        <option value="30">30 ml</option>
+        <option value="50">50 ml</option>
+        <option value="100">100 ml</option>
+      </select>
+    </div>
+    <button class="filter-reset" onclick="resetFilters()">รีเซ็ต</button>
+  </div>
+
+<!-- ✦ BESTSELLERS ✦ -->
+<div class="bestseller-section">
+  <div class="bestseller-label reveal">&nbsp; Best Sellers &nbsp;</div>
+  <div class="cards bestseller-cards" id="productCards">
+
+    <!-- BS1: Afternoon Tea -->
+    <div class="card card-featured reveal-scale" data-price="2100" data-size="50">
+      <div class="card-badge bestseller">Best Seller</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#f5e6c8,#fff3dc,#ffe097)">
+        <div class="bottle-aura" style="width:145px;height:145px;background:radial-gradient(circle,rgb(255, 255, 255) 0%,rgb(255, 229, 238) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Afternoon Tea.png" alt="Afternoon Tea">
+      </div>
+      <h3>Afternoon Tea</h3>
+      <p>หอมลึก เข้มข้น สไตล์ตะวันออก</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#c08030">♡ Earl Grey</span>
+        <span class="note note-mid" style="color:#a06020">♡ Bergamot</span>
+        <span class="note note-base" style="color:#806020">♡ Myrrh</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿2,100</span>
+        <div class="card-actions">
+          <button class="add-btn add-btn-featured" onclick="addToCart('Afternoon Tea','50 ml',2100, 'pic/Afternoon Tea.png')">+ Cart</button>
+          <button class="buy-btn" onclick="buyNow('Afternoon Tea','50 ml',2100, 'pic/Afternoon Tea.png')">Buy Now</button>
+    </div>
+      </div>
+    </div>
+
+    <!-- BS2: Diva -->
+    <div class="card card-featured reveal-scale" data-price="2250" data-size="50">
+      <div class="card-badge bestseller">Best Seller</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fefdff,#8c8c8c,#000000)">
+        <div class="bottle-aura" style="width:155px;height:155px;background:radial-gradient(circle,rgb(189, 189, 189) 0%,rgb(234, 234, 234) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Diva.png" alt="Diva">
+      </div>
+      <h3>Diva</h3>
+      <p>Signature scent · สุดยอดแห่งคอลเลกชัน</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#a090e0">♡ Aldehydes</span>
+        <span class="note note-mid" style="color:#9080d0">♡ Musk</span>
+        <span class="note note-base" style="color:#807080">♡ Tuberose</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿2,250</span>
+        <div class="card-actions">
+          <button class="add-btn add-btn-featured" onclick="addToCart('Diva','50 ml',2250, 'pic/Diva.png')">+ Cart</button>
+          <button class="buy-btn" onclick="buyNow('Diva','50 ml',2250, 'pic/Diva.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BS3: Bua-Baan -->
+    <div class="card card-featured reveal-scale" data-price="1390" data-size="100">
+      <div class="card-badge bestseller">Best Seller</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#e8f5f0,#ffe5fc,#d1ffd1)">
+        <div class="bottle-aura" style="width:160px;height:160px;background:radial-gradient(circle,rgb(245, 255, 212) 0%,rgb(255, 223, 237) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Bua-Baan.png" alt="Bua-Baan">
+      </div>  
+      <h3>Bua-Baan</h3>
+      <p>บานสะพรั่ง เฉิดฉาย ดั่งบัวผลิบาน</p>
+      <div class="card-meta">100 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top">♡ Lotus head</span>
+        <span class="note note-mid">♡ Bergamot</span>
+        <span class="note note-base">♡ Lily</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,390</span>
+        <div class="card-actions">
+          <button class="add-btn add-btn-featured" onclick="addToCart('Bua-Baan','100 ml',1390, 'pic/Bua-Baan.png')">+ Cart</button>
+          <button class="buy-btn" onclick="buyNow('Bua-Baan','100 ml',1390, 'pic/Bua-Baan.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <div class="sub-section-label reveal">&nbsp; All Fragrances &nbsp;</div>
+  <div class="cards" id="allCards">
+    
+
+    <!-- Magnolia Dreams -->
+    <div class="card reveal-scale" data-price="1480" data-size="50">
+      <div class="card-badge" style="background:linear-gradient(135deg,#d8b8e0,#c0a0c8)">Dream</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fffada,#fff6e6,#f9f2d9)">
+        <div class="bottle-aura" style="width:140px;height:140px;background:radial-gradient(circle,rgba(255, 207, 134, 0.52) 0%,rgba(255, 250, 234, 0.788) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Magnolia Dreams.png" alt="Magnolia Dreams">
+      </div>
+      <h3>Magnolia Dreams</h3>
+      <p>ฝันหวาน หอมละมุน ราวกับนิยาย</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#b070b8">♡ Magnolia</span>
+        <span class="note note-mid" style="color:#a060a8">♡ Lychee</span>
+        <span class="note note-base" style="color:#906090">♡ Violet</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,480</span>
+        <div class="card-actions">
+<button class="add-btn" onclick="addToCart('Magnolia Dreams', '50 ml', 1480, 'pic/Magnolia Dreams.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Magnolia Dreams', '50 ml', 1480, 'pic/Magnolia Dreams.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Puppy Love -->
+    <div class="card reveal-scale" data-price="1490" data-size="50">
+      <div class="card-badge" style="background:linear-gradient(135deg,#f9c5a0,#f0a070)">Popular</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fff0e8,#fff7db,#efe4dd)">
+        <div class="bottle-aura" style="width:160px;height:160px;background:radial-gradient(circle,rgba(240,150,100,0.5) 0%,rgba(240,150,100,0.15) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/ppl.png" alt="Puppy Love">
+      </div>
+      <h3>Puppy Love</h3>
+      <p>หวาน อบอุ่น อ่อนโยน เหมือนรักแรก</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top">♡ Tangerine</span>
+        <span class="note note-mid">♡ Caramel</span>
+        <span class="note note-base">♡ Amber</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,490</span>
+        <div class="card-actions">
+<button class="add-btn" onclick="addToCart('Puppy Love', '50 ml', 1490, 'pic/ppl.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Puppy Love', '50 ml', 1490, 'pic/ppl.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Camellia Royale -->
+    <div class="card reveal-scale" data-price="1980" data-size="100">
+      <div class="card-badge bestseller" style="background:linear-gradient(135deg,#8b2252,#c04080)">Royal</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#ffeaf0,#eac498,#fff6cb)">
+        <div class="bottle-aura" style="width:155px;height:155px;background:radial-gradient(circle,rgba(255, 30, 97, 0.52) 0%,rgba(200,100,130,0.16) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Camellia Royale.png" alt="Camellia Royale">
+      </div>
+      <h3>Camellia Royale</h3>
+      <p>หรูหรา มีระดับ สมกับความเป็นราชินี</p>
+      <div class="card-meta">100 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#c04070">♡ Camellia</span>
+        <span class="note note-mid" style="color:#a03060">♡ Rose</span>
+        <span class="note note-base" style="color:#804050">♡ Patchouli</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,980</span>
+        <div class="card-actions">
+<button class="add-btn" onclick="addToCart('Camellia Royale','100 ml',1980, 'pic/Camellia Royale.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Camellia Royale','100 ml',1980, 'pic/Camellia Royale.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vanilla Sky -->
+    <div class="card reveal-scale" data-price="1420" data-size="100">
+      <div class="card-badge" style="background:linear-gradient(135deg,#d0a060,#b07030)">Warm</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fff8e0,#faeec0,#f0e0a0)" >
+        <div class="bottle-aura" style="width:150px;height:150px;background:radial-gradient(circle,rgba(232,192,120,0.55) 0%,rgba(232,192,120,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Vanilla Sky.png" alt="Vanilla Sky">
+      </div>
+      <h3>Vanilla Sky</h3>
+      <p>อบอุ่น หอมหวาน เหมือนพระอาทิตย์ตก</p>
+      <div class="card-meta">100 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#c09030">♡ Vanilla</span>
+        <span class="note note-mid" style="color:#b07028">♡ Heliotrope</span>
+        <span class="note note-base" style="color:#a06020">♡ Tonka</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,420</span>
+        <div class="card-actions">
+<button class="add-btn" onclick="addToCart('Vanilla Sky','100 ml',1420, 'pic/Vanilla Sky.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Vanilla Sky','100 ml',1420, 'pic/Vanilla Sky.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Peach Sorbet -->
+    <div class="card reveal-scale" data-price="1240" data-size="30">
+      <div class="card-badge" style="background:linear-gradient(135deg,#f0a060,#e87840)">Fruity</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fff0e0,#ffdfc0,#ffcca0)">
+        <div class="bottle-aura" style="width:135px;height:135px;background:radial-gradient(circle,rgba(248,168,112,0.55) 0%,rgba(248,168,112,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Peach Sorbet.png" alt="Peach Sorbet">
+      </div>
+      <h3>Peach Sorbet</h3>
+      <p>หวาน สดใส เย็นชื่นใจ</p>
+      <div class="card-meta">30 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#d07840">♡ Peach</span>
+        <span class="note note-mid" style="color:#c06030">♡ Raspberry</span>
+        <span class="note note-base" style="color:#a06040">♡ Musk</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,240</span>
+        <div class="card-actions">
+<button class="add-btn" onclick="addToCart('Peach Sorbet','30 ml',1240, 'pic/Peach Sorbet.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Peach Sorbet','30 ml',1240, 'pic/Peach Sorbet.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cherry Kiss -->
+    <div class="card reveal-scale" data-price="1260" data-size="30">
+      <div class="card-badge" style="background:linear-gradient(135deg,#c02040,#e04060)">Kiss</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#ffe0e8,#ffbcc8,#ff9eb4)">
+        <div class="bottle-aura" style="width:135px;height:135px;background:radial-gradient(circle,rgba(220,80,110,0.52) 0%,rgba(220,80,110,0.16) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Cherry Kiss.png" alt="Cherry Kiss">
+      </div>
+      <h3>Cherry Kiss</h3>
+      <p>หวาน ซ่าส์ เร้าใจ เปรี้ยวหวาน</p>
+      <div class="card-meta">30 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#c02040">♡ Cherry</span>
+        <span class="note note-mid" style="color:#d04060">♡ Strawberry</span>
+        <span class="note note-base" style="color:#a03050">♡ Rose</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,260</span>
+        <div class="card-actions">
+<button class="add-btn" onclick="addToCart('Cherry Kiss','30 ml',1260, 'pic/Cherry Kiss.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Cherry Kiss','30 ml',1260, 'pic/Cherry Kiss.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Honey Bee -->
+    <div class="card reveal-scale" data-price="1320" data-size="30">
+      <div class="card-badge" style="background:linear-gradient(135deg,#e8a820,#c88010)">Sweet</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fff8d0,#ffeea0,#ffe070)">
+        <div class="bottle-aura" style="width:140px;height:140px;background:radial-gradient(circle,rgba(248,200,64,0.58) 0%,rgba(248,200,64,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Honey Bee.png" alt="Honey Bee">
+      </div>
+      <h3>Honey Bee</h3>
+      <p>หอมหวาน ดึงดูด อ่อนโยน</p>
+      <div class="card-meta">30 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#c0a020">♡ Bergamot</span>
+        <span class="note note-mid" style="color:#d08010">♡ Honey</span>
+        <span class="note note-base" style="color:#a06020">♡ Beeswax</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,320</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Honey Bee','30 ml',1320, 'pic/Honey Bee.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Honey Bee','30 ml',1320, 'pic/Honey Bee.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harajuku Sweet -->
+    <div class="card reveal-scale" data-price="1450" data-size="50">
+      <div class="card-badge" style="background:linear-gradient(135deg,#b0c8b0,#90b890)">Pure</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#f8fff8,#c7ffc7)">
+        <div class="bottle-aura" style="width:135px;height:135px;background:radial-gradient(circle,rgba(160,200,160,0.52) 0%,rgba(160,200,160,0.16) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Harajuku Sweet.png" alt="Harajuku Sweet">
+      </div>
+      <h3>Harajuku Sweet</h3>
+      <p>บริสุทธิ์ สะอาด หอมหวานอ่อนโยน</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#70a870">♡ Melon</span>
+        <span class="note note-mid" style="color:#80b080">♡ Green Tea</span>
+        <span class="note note-base" style="color:#608060">♡ White Cedar</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,450</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Harajuku Sweet','50 ml',1450, 'pic/Harajuku Sweet.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Harajuku Sweet','50 ml',1450, 'pic/Harajuku Sweet.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blush Muse -->
+    <div class="card reveal-scale" data-price="1490" data-size="100">
+      <div class="card-badge">Popular</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fce8f5,#dca2da,#ffdaf3)">
+        <div class="bottle-aura" style="width:145px;height:145px;background:radial-gradient(circle,rgba(224, 23, 255, 0.6) 0%,rgba(200,180,220,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Blush Muse.png" alt="Blush Muse">
+      </div>
+      <h3>Blush Muse</h3>
+      <p>Sweet powdery elegance</p>
+      <div class="card-meta">100 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top">♡ Iris</span>
+        <span class="note note-mid">♡ Vanilla</span>
+        <span class="note note-base">♡ Sandalwood</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,490</span>
+        <div class="card-actions">
+           <button class="add-btn" onclick="addToCart('Blush Muse','100 ml',1490, 'pic/Blush Muse.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Blush Muse','100 ml',1490, 'pic/Blush Muse.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Velvet Noir -->
+    <div class="card reveal-scale" data-price="1680" data-size="50">
+      <div class="card-badge" style="background:linear-gradient(135deg,#6b5080,#9070a8)">Luxury</div>
+      <div class="bottle-wrap"style="background:linear-gradient(145deg,#805960,#805066,#ffdaf3)">
+        <div class="bottle-aura" style="width:140px;height:140px;background:radial-gradient(circle,rgba(140,100,180,0.55) 0%,rgba(140,100,180,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Velvet Noir.png" alt="Velvet Noir">
+      </div>
+      <h3>Velvet Noir</h3>
+      <p>Dark, mysterious & luxurious</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#9b6eb0">♡ Blackberry</span>
+        <span class="note note-mid" style="color:#7060a8">♡ Rose</span>
+        <span class="note note-base" style="color:#8b6030">♡ Oud</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,680</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Velvet Noir','50 ml',1680, 'pic/Velvet Noir.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Velvet Noir','50 ml',1680, 'pic/Velvet Noir.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Musa -->
+    <div class="card reveal-scale" data-price="1720" data-size="50">
+      <div class="card-badge" style="background:linear-gradient(135deg,#999999,#adadad)">Night</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#887f84,#8a8085,#f7f9ff)">
+        <div class="bottle-aura" style="width:145px;height:145px;background:radial-gradient(circle,rgba(80,120,200,0.5) 0%,rgba(80,120,200,0.15) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Musa.png" alt="Musa">
+      </div>
+      <h3>Musa</h3>
+      <p>ลึกลับ หรูหรา เบ่งบานในยามค่ำ</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#6080c0">♡ Wild Blueberry</span>
+        <span class="note note-mid" style="color:#708090">♡ Indian Tuberose</span>
+        <span class="note note-base" style="color:#607080">♡ Cedarwood</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,720</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Musa','50 ml',1720, 'pic/Musa.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Musa','50 ml',1720, 'pic/Musa.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Radiant Heart -->
+    <div class="card reveal-scale" data-price="1250" data-size="30">
+      <div class="card-badge fresh" style="background:linear-gradient(135deg,#9a88c8,#b8a8e8)">Calm</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#ede8ff,#ffcdff,#f0c0d7)">
+        <div class="bottle-aura" style="width:135px;height:135px;background:radial-gradient(circle,rgba(246, 242, 255, 0.777) 0%,rgba(225, 218, 238, 0.81) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Radiant heart.png" alt="Radiant heart">
+      </div>
+      <h3>Radiant heart</h3>
+      <p>Calming floral & herbal escape</p>
+      <div class="card-meta">30 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#9878c0">♡ Lavender</span>
+        <span class="note note-mid" style="color:#8090a8">♡ Rosemary</span>
+        <span class="note note-base">♡ Musk</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,250</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Radiant heart','30 ml',1250, 'pic/Radiant heart.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Radiant heart','30 ml',1250, 'pic/Radiant heart.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex Lovers -->
+    <div class="card reveal-scale" data-price="1590" data-size="50">
+      <div class="card-badge" style="background:linear-gradient(135deg,#6a1a35,#9a304060)">Dark</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#c97d8bc2,#fff1f1,  rgb(220, 184, 188))">
+        <div class="bottle-aura" style="width:150px;height:150px;background:radial-gradient(circle,rgba(180,60,100,0.55) 0%,rgba(180,60,100,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/ex lover.png" alt="Ex Lovers">
+      </div>
+      <h3>Ex Lovers</h3>
+      <p>หอมลึก ทะมึน อบอวลแห่งความทรงจำ</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#c06080">♡ Rose</span>
+        <span class="note note-mid" style="color:#8060a0">♡ Black Currant</span>
+        <span class="note note-base" style="color:#806030">♡ Oud</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,590</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Ex Lovers','50 ml',1590, 'pic/ex lover.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Ex Lovers','50 ml',1590, 'pic/ex lover.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rose Velvet -->
+    <div class="card reveal-scale" data-price="1290" data-size="50">
+      <div class="card-badge">New</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#ffe8f0,#fff3f8,#ffb8d8)">
+        <div class="bottle-aura" style="width:140px;height:140px;background:radial-gradient(circle,rgba(243,184,196,0.6) 0%,rgba(243,184,196,0.2) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Rose Velvet.png" alt="Rose Velvet">
+      </div>
+      <h3>Rose Velvet</h3>
+      <p>Floral & soft romantic scent</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top">♡ Rosa centifolia</span>
+        <span class="note note-mid">♡ Peony</span>
+        <span class="note note-base">♡ White Musk</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,290</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Rose Velvet','50 ml',1290, 'pic/Rose Velvet.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Rose Velvet','50 ml',1290, 'pic/Rose Velvet.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summer -->
+    <div class="card reveal-scale" data-price="950" data-size="30">
+      <div class="card-badge fresh">Fresh</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#eefff2,#ffd3e3)">
+        <div class="bottle-aura" style="width:130px;height:130px;background:radial-gradient(circle,rgba(120,168,144,0.55) 0%,rgba(120,168,144,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Summer.png" alt="Summer">
+      </div>
+      <h3>Summer</h3>
+      <p>Fresh & feminine charm</p>
+      <div class="card-meta">30 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top">♡ Citrus aurantifolia</span>
+        <span class="note note-mid">♡ Jasmine</span>
+        <span class="note note-base">♡ Green</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿950</span>
+        <div class="card-actions">
+           <button class="add-btn" onclick="addToCart('Summer','30 ml',950, 'pic/Summer.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Summer','30 ml',950, 'pic/Summer.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sakura Dew -->
+    <div class="card reveal-scale" data-price="1280" data-size="30">
+      <div class="card-badge fresh" style="background:linear-gradient(135deg,#f3a8c0,#e880a0)">Soft</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#ffe1f1,#ffe4e4,#fae3ef)">
+        <div class="bottle-aura" style="width:135px;height:135px;background:radial-gradient(circle,rgba(240,176,200,0.6) 0%,rgba(240,176,200,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Sakura Dew.png" alt="Sakura Dew">
+      </div>
+      <h3>Sakura Dew</h3>
+      <p>Soft cherry blossom & morning dew</p>
+      <div class="card-meta">30 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top">♡ Sakura</span>
+        <span class="note note-mid">♡ Peach</span>
+        <span class="note note-base">♡ White Musk</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,280</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Sakura Dew','30 ml',1280, 'pic/Sakura Dew.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Sakura Dew','30 ml',1280, 'pic/Sakura Dew.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Forest Walk -->
+    <div class="card reveal-scale" data-price="1560" data-size="100">
+      <div class="card-badge" style="background:linear-gradient(135deg,#3a7040,#58a058)">Wood</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#d0ead0,#b8ddb8,#9acc9a)">
+        <div class="bottle-aura" style="width:150px;height:150px;background:radial-gradient(circle,rgba(80,160,88,0.5) 0%,rgba(80,160,88,0.16) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Forest Walk.png" alt="Forest Walk">
+      </div>
+      <h3>Forest Walk</h3>
+      <p>สดชื่น ป่า ธรรมชาติ สงบ</p>
+      <div class="card-meta">100 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#3a7040">♡ Woody</span>
+        <span class="note note-mid" style="color:#4a8050">♡ Vetiver</span>
+        <span class="note note-base" style="color:#5a6040">♡ Moss</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,560</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Forest Walk','100 ml',1560, 'pic/Forest Walk.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Forest Walk','100 ml',1560, 'pic/Forest Walk.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lirio-->
+    <div class="card reveal-scale" data-price="1850" data-size="100">
+      <div class="card-badge bestseller" style="background:linear-gradient(135deg,#d4a840,#c09030)">Premium</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#fdf5d0,#fffbeb,#ffe2ee)">
+        <div class="bottle-aura" style="width:150px;height:150px;background:radial-gradient(circle,rgba(220,180,40,0.55) 0%,rgba(220,180,40,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Lirio.png" alt="Lirio">
+      </div>
+      <h3>Lirio</h3>
+      <p>Warm floral & precious amber</p>
+      <div class="card-meta">100 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#c0980a">♡ Madonna Lily</span>
+        <span class="note note-mid" style="color:#a07830">♡ Ylang</span>
+        <span class="note note-base" style="color:#806020">♡ Amber</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,850</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Lirio','100 ml',1850, 'pic/Lirio.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Lirio','100 ml',1850, 'pic/Lirio.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cotton Cloud -->
+    <div class="card reveal-scale" data-price="1310" data-size="50">
+      <div class="card-badge" style="background:linear-gradient(135deg,#b0c8e0,#90b0d0)">Airy</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#f8fbff,#e8f2ff)">
+        <div class="bottle-aura" style="width:140px;height:140px;background:radial-gradient(circle,rgba(160,192,232,0.55) 0%,rgba(160,192,232,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Cotton Cloud.png" alt="Cotton Cloud">
+      </div>
+      <h3>Cotton Cloud</h3>
+      <p>เบา โปร่ง นุ่มนวล เหมือนก้อนเมฆ</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#6090c0">♡ Cotton</span>
+        <span class="note note-mid" style="color:#5080b0">♡ Powdery</span>
+        <span class="note note-base" style="color:#4070a0">♡ Musk</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,310</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Cotton Cloud','50 ml',1310, 'pic/Cotton Cloud.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Cotton Cloud','50 ml',1310, 'pic/Cotton Cloud.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ocean Breeze -->
+    <div class="card reveal-scale" data-price="1380" data-size="50">
+      <div class="card-badge fresh" style="background:linear-gradient(135deg,#c5e7fc,#60b0e0)">Fresh</div>
+      <div class="bottle-wrap" style="background:linear-gradient(145deg,#d8f4ff,#e5f7ec,#90daff)">
+        <div class="bottle-aura" style="width:140px;height:140px;background:radial-gradient(circle,rgba(96,176,216,0.55) 0%,rgba(96,176,216,0.18) 50%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <img src="pic/Ocean Breeze.png" alt="Ocean Breeze">
+      </div>
+      <h3>Ocean Breeze</h3>
+      <p>สดชื่น โปร่ง โล่งเหมือนสายลมทะเล</p>
+      <div class="card-meta">50 ml · Eau de Parfum</div>
+      <div class="note-bar">
+        <span class="note note-top" style="color:#4090c0">♡ Sea Salt</span>
+        <span class="note note-mid" style="color:#60a0b0">♡ Aquatic</span>
+        <span class="note note-base" style="color:#508090">♡ Driftwood</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">฿1,380</span>
+        <div class="card-actions">
+          <button class="add-btn" onclick="addToCart('Ocean Breeze','50 ml',1380, 'pic/Ocean Breeze.png')">+ Cart</button>
+<button class="buy-btn" onclick="buyNow('Ocean Breeze','50 ml',1380, 'pic/Ocean Breeze.png')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+</section>
+
+<!-- IMAGE LIGHTBOX (ต้องอยู่นอกทุก card) -->
+<div id="imgModal" class="img-modal">
+  <span class="img-close">&times;</span>
+  <img id="imgModalSrc" class="img-modal-content">
+</div>
+
+<footer>
+  <svg class="footer-vine" viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 Q100,10 200,35 Q300,58 400,30 Q500,5 600,32 Q700,58 800,28 Q900,5 1000,34 Q1100,58 1200,38" stroke="#b8d4ae" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="200" cy="35" r="4" fill="#f3c6ce" opacity="0.7"/>
+    <circle cx="600" cy="32" r="5" fill="#f9dde2" opacity="0.7"/>
+    <circle cx="1000" cy="34" r="4" fill="#f3c6ce" opacity="0.7"/>
+  </svg>
+  <div class="logo footer-logo">Maison Blush</div>
+  <p>© 2026 Maison Blush. All rights reserved.</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

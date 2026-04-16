@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Blush — ผู้จัดทำ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}
+
+/* ── Team Section ── */
+.team-section {
+  position:relative; z-index:1;
+  padding: 100px 40px 100px;
+  background: linear-gradient(160deg, #fde8ec, #f0faf2 50%, #fde8ec);
+  min-height: 80vh;
+}
+
+.team-intro {
+  max-width: 640px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+.team-intro p {
+  font-size:14px;
+  line-height:2;
+  color:var(--text-mid);
+  font-style:italic;
+}
+.team-intro .course-badge {
+  display:inline-block;
+  margin-top: 18px;
+  padding: 6px 22px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(243,198,206,0.6);
+  border-radius: 30px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--green-sage);
+  text-transform: uppercase;
+}
+
+/* ── Cards grid ── */
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.team-card {
+  position: relative;
+  width: 300px;
+  background: rgba(255,255,255,0.88);
+  border-radius: 28px;
+  border: 1px solid rgba(243,198,206,0.5);
+  box-shadow: 0 4px 30px rgba(232,174,183,0.13), inset 0 1px 0 rgba(255,255,255,0.9);
+  padding: 36px 28px 28px;
+  text-align: center;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  overflow: hidden;
+}
+.team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 18px 50px rgba(232,174,183,0.22);
+}
+.team-card::before {
+  content:'';
+  position:absolute;
+  inset:10px;
+  border:1px dashed rgba(243,198,206,0.45);
+  border-radius:20px;
+  pointer-events:none;
+}
+
+/* Role ribbon */
+.role-ribbon {
+  position: absolute;
+  top: 18px;
+  right: -1px;
+  padding: 4px 14px 4px 10px;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 12px 0 0 12px;
+  font-family: 'Jost', sans-serif;
+}
+
+/* Avatar */
+.member-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  border: 3px solid rgba(243,198,206,0.5);
+  box-shadow: 0 4px 20px rgba(232,174,183,0.25);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+.team-card:hover .member-avatar {
+  transform: scale(1.06);
+}
+
+.member-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+.member-id {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-light);
+  margin-bottom: 14px;
+  font-family: 'Jost', sans-serif;
+}
+.member-role {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 16px;
+  padding: 4px 16px;
+  border-radius: 20px;
+  display: inline-block;
+}
+.member-desc {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--text-mid);
+  font-style: italic;
+  border-top: 1px solid rgba(243,198,206,0.35);
+  padding-top: 14px;
+  margin-top: 6px;
+}
+
+.team-card.leader {
+  background: linear-gradient(155deg, rgba(255,255,255,0.96), rgba(253,237,244,0.85));
+  border-color: rgba(232,174,183,0.6);
+  transform: translateY(-8px) scale(1.02);
+}
+.team-card.leader:hover {
+  transform: translateY(-18px) scale(1.02);
+}
+
+.uni-badge {
+  text-align:center;
+  margin-top: 64px;
+}
+.uni-badge-inner {
+  display:inline-block;
+  padding: 20px 44px;
+  background: rgba(255,255,255,0.88);
+  border-radius: 20px;
+  border: 1px solid rgba(243,198,206,0.45);
+  box-shadow: 0 4px 24px rgba(232,174,183,0.12);
+}
+.uni-badge-inner p {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.uni-badge-inner h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-dark);
+  letter-spacing: 1px;
+}
+.uni-badge-inner span {
+  font-size: 11px;
+  color: var(--green-sage);
+  letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  .team-section { padding: 80px 20px 80px; }
+  .team-card { width: 100%; max-width: 360px; }
+}
+</style>
+</head>
+<body class="fade-in">
+<canvas id="petalCanvas"></canvas>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header"><h3>🛒 ตะกร้าสินค้า</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div></div>
+  <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
+    <div class="cart-total"><span class="cart-total-label">ยอดรวมทั้งหมด</span><span class="cart-total-amount" id="cartTotal">฿0</span></div>
+    <button class="checkout-btn" onclick="goToCheckout()">
+  ยืนยันคำสั่งซื้อ
+</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()">Home</a>
+  <a href="collection.html" onclick="closeMobileNav()">Collection</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
+  <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
+  <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+</div>
+
+<header>
+  <a class="logo" href="index.html">
+  <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+  Maison Blush
+  <nav id="desktopNav">
+    <a href="index.html">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="support.html">Customer Support</a>
+    <a href="team.html" class="nav-active">ผู้จัดทำ</a>
+  </nav>
+  <div class="header-actions">
+    <button class="cart-icon-btn" onclick="openCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ═══ TEAM ═══ -->
+<section class="team-section">
+  <div class="section-label reveal" style="text-align:center">— ผู้อยู่เบื้องหลัง —</div>
+  <h2 class="section-title reveal" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);font-weight:400;color:var(--text-dark);margin-bottom:18px;">ผู้จัดทำโปรเจกต์</h2>
+  <div class="divider-botanical reveal" style="justify-content:center;margin-bottom:40px">
+  </div>
+
+  
+  </div>
+
+  <div class="team-grid">
+
+    <!-- Member 1 -->
+    <div class="team-card reveal-scale">
+      <div class="member-avatar" style="background:linear-gradient(135deg,#fde8ec,#f3c6ce)">💻</div>
+      <div class="member-name">น.ส.หทัยทิพย์ ชมวงษ์</div>
+      <div class="member-id">รหัสนักศึกษา: 68096471</div>
+      <div class="member-role" style="background:rgba(243,198,206,0.3);color:var(--pink-deep)">Full-Stack Developer <br> / Product Designer</div>
+      <div class="member-desc">รับผิดชอบพัฒนาเว็บไซต์ทั้งหมดของโปรเจกต์ + ออกแบบขวดน้ำหอมและบรรจุภัณฑ์</div>
+    </div>
+
+    <!-- Member 2 -->
+    <div class="team-card reveal-scale">
+      <div class="member-avatar" style="background:linear-gradient(135deg,#ede8f8,#d8cce8)">🎨</div>
+      <div class="member-name">น.ส.ปุณณรีย์<br> ภิรมย์รัตนปรีชา</div>
+      <div class="member-id">รหัสนักศึกษา: 68081523</div>
+      <div class="member-role" style="background:rgba(200,184,216,0.25);color:#9070b8">Product & Presentation Designer</div>
+      <div class="member-desc">รับผิดชอบออกแบบขวดน้ำหอมและบรรจุภัณฑ์ + สไลด์นำเสนอของโปรเจกต์</div>
+    </div>
+
+    <!-- Member 3 -->
+    <div class="team-card reveal-scale">
+      <div class="member-avatar" style="background:linear-gradient(135deg,#ebf8e8,#d1e8cc)">🎨</div>
+      <div class="member-name">น.ส.พรทิพา ปัจจัย </div>
+      <div class="member-id">รหัสนักศึกษา: 68092642 </div>
+      <div class="member-role" style="background:rgba(202, 224, 196, 0.25);color:#7db870">Presentation Designer</div>
+      <div class="member-desc">รับผิดชอบออกแบบสไลด์นำเสนอของ<br>โปรเจกต์ให้สวยงาม</div>
+    </div>
+
+    <!-- Member 4 -->
+    <div class="team-card reveal-scale">
+      <div class="member-avatar" style="background:linear-gradient(135deg,#fdf5e0,#f0e0a0)">🎨</div>
+      <div class="member-name">น.ส.พัชราภรณ์<br> รัตนมงคลมุนี</div>
+      <div class="member-id">รหัสนักศึกษา: 68092351</div>
+      <div class="member-role" style="background:rgba(240,200,120,0.2);color:#a07820">Presentation Designer</div>
+      <div class="member-desc">รับผิดชอบออกแบบสไลด์นำเสนอของ<br>โปรเจกต์ให้สวยงาม</div>
+    </div>
+
+    <!-- Member 5 -->
+    <div class="team-card reveal-scale">
+      <div class="member-avatar" style="background:linear-gradient(135deg,#e8f0ff,#c8d8f0)">🎨</div>
+      <div class="member-name">[ชื่อ นามสกุล]</div>
+      <div class="member-id">รหัสนักศึกษา: 66XXXXXXXX</div>
+      <div class="member-role" style="background:rgba(112,144,208,0.2);color:#4060a0">Presentation Designer</div>
+      <div class="member-desc">รับผิดชอบออกแบบสไลด์นำเสนอของ<br>โปรเจกต์ให้สวยงาม</div>
+    </div>
+
+  </div>
+
+  <!-- University Badge -->
+  <div class="uni-badge reveal">
+    <div class="uni-badge-inner">
+      <p>สังกัด</p>
+      <h4>[มหาวิทยาลัยศรีปทุม / คณะเทคโนโลยีสารสนเทศ / สาขาวิชาเทคโนโลยีสารสนเทศ]</h4>
+      <span>ปีการศึกษา 2568</span>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <svg class="footer-vine" viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 Q100,10 200,35 Q300,58 400,30 Q500,5 600,32 Q700,58 800,28 Q900,5 1000,34 Q1100,58 1200,38" stroke="#b8d4ae" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="600" cy="32" r="5" fill="#f9dde2" opacity="0.7"/>
+  </svg>
+  <div class="logo footer-logo">Maison Blush</div>
+  <p>© 2026 Maison Blush. All rights reserved.</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

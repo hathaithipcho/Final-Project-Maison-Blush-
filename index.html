@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+<title>Maison Blush — Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}</style>
+</head>
+<body class="home-page fade-in">
+<div class="sparkle-layer" id="sparkleLayer"></div>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header"><h3>🛒 ตะกร้าสินค้า</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div></div>
+  <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
+    <div class="cart-total"><span class="cart-total-label">ยอดรวมทั้งหมด</span><span class="cart-total-amount" id="cartTotal">฿0</span></div>
+    <button class="checkout-btn" onclick="goToCheckout()">
+  ยืนยันคำสั่งซื้อ
+</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()">Home</a>
+  <a href="collection.html" onclick="closeMobileNav()">Collection</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
+  <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
+  <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+</div>
+
+<header>
+  <a class="logo" href="index.html">
+    <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+    Maison Blush
+  </a>
+
+  <nav id="desktopNav">
+    <a href="index.html" class="nav-active">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="support.html">Customer Support</a>
+    <a href="team.html">ผู้จัดทำ</a>
+  </nav>
+
+  <div class="header-actions">
+    <button class="cart-icon-btn" onclick="openCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+
+    <button class="hamburger" onclick="openMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-blob b1"></div><div class="hero-blob b2"></div><div class="hero-blob b3"></div><div class="hero-blob b4"></div>
+  <div class="overlay"></div>
+<div class="hero-box">
+  <p>Discover your signature scent with our exclusive perfume collection</p>
+  <a href="collection.html" class="shop-button-img">
+   <img src="pic/shop.png" alt="Shop Now">
+  </a>
+  <div class="hero-ornament bottom-ornament">— &ensp; Maison Blush &ensp; —</div>
+</div>
+</section>
+
+<div class="scent-strip">
+  <div class="strip-item">Rose &amp; Musk</div><div class="strip-dot">·</div>
+  <div class="strip-item">Green Florals</div><div class="strip-dot">·</div>
+  <div class="strip-item">Rare Botanicals</div><div class="strip-dot">·</div>
+  <div class="strip-item">Warm Woods</div><div class="strip-dot">·</div>
+  <div class="strip-item">Rose &amp; Musk</div><div class="strip-dot">·</div>
+  <div class="strip-item">Green Florals</div>
+</div>
+
+<footer>
+  <svg class="footer-vine" viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 Q100,10 200,35 Q300,58 400,30 Q500,5 600,32 Q700,58 800,28 Q900,5 1000,34 Q1100,58 1200,38" stroke="#b8d4ae" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="200" cy="35" r="4" fill="#f3c6ce" opacity="0.7"/>
+    <circle cx="600" cy="32" r="5" fill="#f9dde2" opacity="0.7"/>
+    <circle cx="1000" cy="34" r="4" fill="#f3c6ce" opacity="0.7"/>
+  </svg>
+  <div class="logo footer-logo">Maison Blush</div>
+  <p>© 2026 Maison Blush. All rights reserved.</p>
+</footer>
+<script src="script.js"></script>
+
+</body>
+</html>

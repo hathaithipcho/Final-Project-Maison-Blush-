@@ -1,0 +1,213 @@
+  <!DOCTYPE html>
+  <html lang="th">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Blush — Reviews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}</style>
+  </head>
+  <body class="fade-in">
+  <canvas id="petalCanvas"></canvas>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header"><h3>🛒 ตะกร้าสินค้า</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
+    <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div></div>
+    <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
+      <div class="cart-total"><span class="cart-total-label">ยอดรวมทั้งหมด</span><span class="cart-total-amount" id="cartTotal">฿0</span></div>
+      <button class="checkout-btn" onclick="goToCheckout()">ยืนยันคำสั่งซื้อ</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+    <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="collection.html" onclick="closeMobileNav()">Collection</a>
+    <a href="about.html" onclick="closeMobileNav()">About</a>
+    <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+    <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
+    <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
+    <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+  </div>
+
+  <header>
+    <a class="logo" href="index.html">
+      <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+      Maison Blush
+    </a>
+    <nav id="desktopNav">
+      <a href="index.html">Home</a>
+      <a href="collection.html">Collection</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="reviews.html" class="nav-active">Reviews</a>
+      <a href="support.html">Customer Support</a>
+      <a href="team.html">ผู้จัดทำ</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-icon-btn" onclick="openCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ═══ REVIEWS ═══ -->
+  <section class="reviews" id="reviews" style="padding-top:100px">
+    <div class="section-label reveal">— ความคิดเห็นจากลูกค้า —</div>
+    <h2 class="reveal">Customer Reviews</h2>
+    <div class="divider-botanical reveal">
+    </div>
+
+  <!-- Rating Summary -->
+  <div class="reveal" style="max-width:400px;margin:0 auto 50px;background:rgba(255,255,255,0.88);border-radius:20px;padding:28px;border:1px solid rgba(243,198,206,0.4);text-align:center">
+
+    <!-- Average Rating -->
+    <div id="avgRating"
+        style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;color:var(--pink-deep);line-height:1">
+      0.0
+    </div>
+
+    <div style="color:#f3b6c1;font-size:22px;letter-spacing:4px;margin:6px 0">★★★★★</div>
+
+    <div style="font-size:12px;color:var(--text-light);letter-spacing:2px">
+      จากรีวิวทั้งหมด
+    </div>
+
+    <!-- Rating Bars -->
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px">
+
+      <!-- 5 Stars -->
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-light)">
+        <span style="width:14px">5★</span>
+        <div style="flex:1;height:6px;background:#f0e8ea;border-radius:4px;overflow:hidden">
+          <div id="bar5" style="width:0%;height:100%;background:linear-gradient(90deg,#f3b6c1,#e8aeb7);border-radius:4px"></div>
+        </div>
+        <span id="txt5">0%</span>
+      </div>
+
+      <!-- 4 Stars -->
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-light)">
+        <span style="width:14px">4★</span>
+        <div style="flex:1;height:6px;background:#f0e8ea;border-radius:4px;overflow:hidden">
+          <div id="bar4" style="width:0%;height:100%;background:linear-gradient(90deg,#f3b6c1,#e8aeb7);border-radius:4px"></div>
+        </div>
+        <span id="txt4">0%</span>
+      </div>
+
+      <!-- 3 Stars -->
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-light)">
+        <span style="width:14px">3★</span>
+        <div style="flex:1;height:6px;background:#f0e8ea;border-radius:4px;overflow:hidden">
+          <div id="bar3" style="width:0%;height:100%;background:linear-gradient(90deg,#f3b6c1,#e8aeb7);border-radius:4px"></div>
+        </div>
+        <span id="txt3">0%</span>
+      </div>
+
+      <!-- 2 Stars -->
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-light)">
+        <span style="width:14px">2★</span>
+        <div style="flex:1;height:6px;background:#f0e8ea;border-radius:4px;overflow:hidden">
+          <div id="bar2" style="width:0%;height:100%;background:linear-gradient(90deg,#f3b6c1,#e8aeb7);border-radius:4px"></div>
+        </div>
+        <span id="txt2">0%</span>
+      </div>
+
+      <!-- 1 Star -->
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-light)">
+        <span style="width:14px">1★</span>
+        <div style="flex:1;height:6px;background:#f0e8ea;border-radius:4px;overflow:hidden">
+          <div id="bar1" style="width:0%;height:100%;background:linear-gradient(90deg,#f3b6c1,#e8aeb7);border-radius:4px"></div>
+        </div>
+        <span id="txt1">0%</span>
+      </div>
+
+    </div>
+  </div>
+
+    <!-- Reviews Grid — รีวิวทั้งหมด (default + user) render จาก JS -->
+    <div class="reviews-grid" id="reviewsGrid" style="margin-bottom:60px"></div>
+
+    <!-- Write Review Form -->
+    <div class="review-form-wrap reveal">
+      <h3 class="review-form-title">เขียนรีวิวของคุณ ♡</h3>
+      <div class="form-group">
+        <label>ชื่อของคุณ</label>
+        <input type="text" class="form-input" placeholder="ชื่อ-นามสกุล" id="reviewName">
+      </div>
+      <div class="form-group">
+        <label>สินค้าที่ใช้</label>
+  <!-- แทนที่ <select> เดิม -->
+  <select class="form-input" id="reviewProduct">
+    <option>Afternoon Tea · 50 ml</option>
+    <option>Diva · 50 ml</option>
+    <option>Bua-Baan · 100 ml</option>
+    <option>Magnolia Dreams · 50 ml</option>
+    <option>Puppy Love · 50 ml</option>
+    <option>Camellia Royale · 100 ml</option>
+    <option>Vanilla Sky · 100 ml</option>
+    <option>Peach Sorbet · 30 ml</option>
+    <option>Cherry Kiss · 30 ml</option>
+    <option>Honey Bee · 30 ml</option>
+    <option>Harajuku Sweet · 50 ml</option>
+    <option>Blush Muse · 100 ml</option>
+    <option>Velvet Noir · 50 ml</option>
+    <option>Musa · 50 ml</option>
+    <option>Radiant Heart · 30 ml</option>
+    <option>Ex Lovers · 50 ml</option>
+    <option>Rose Velvet · 50 ml</option>
+    <option>Summer · 30 ml</option>
+    <option>Sakura Dew · 30 ml</option>
+    <option>Forest Walk · 100 ml</option>
+    <option>Lirio · 100 ml</option>
+    <option>Cotton Cloud · 50 ml</option>
+    <option>Ocean Breeze · 50 ml</option>
+  </select>
+      </div>
+      <div class="form-group">
+        <label>คะแนน</label>
+        <div class="star-select" id="starSelect">
+          <span onclick="setStars(1)">★</span><span onclick="setStars(2)">★</span>
+          <span onclick="setStars(3)">★</span><span onclick="setStars(4)">★</span><span onclick="setStars(5)">★</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ความคิดเห็น</label>
+        <textarea class="form-textarea" placeholder="แชร์ประสบการณ์ของคุณกับ Maison Blush..." id="reviewText"></textarea>
+      </div>
+      <button class="submit-review" onclick="submitReview()">ส่งรีวิว ✿</button>
+    </div>
+  </section>
+
+  <footer>
+    <svg class="footer-vine" viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 Q100,10 200,35 Q300,58 400,30 Q500,5 600,32 Q700,58 800,28 Q900,5 1000,34 Q1100,58 1200,38" stroke="#b8d4ae" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <circle cx="600" cy="32" r="5" fill="#f9dde2" opacity="0.7"/>
+    </svg>
+    <div class="logo footer-logo">Maison Blush</div>
+    <p>© 2026 Maison Blush. All rights reserved.</p>
+  </footer>
+
+  <div id="customAlert" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-icon">🌸</div>
+          <h3 id="alertTitle">Maison Blush</h3>
+          <p id="alertMessage">กรุณากรอกข้อมูลให้ครบถ้วนนะคะ</p>
+          <button onclick="closeAlert()" class="modal-btn">ตกลง</button>
+      </div>
+  </div>
+  <div id="reviewAlert" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-icon">🌸</div>
+      <h3>Maison Blush</h3>
+      <p id="reviewAlertText">ข้อความ</p>
+      <button onclick="closeReviewAlert()" class="modal-btn">ตกลง</button>
+    </div>
+  </div>
+  </body>
+  <script src="script.js"></script>
+  </html>
