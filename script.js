@@ -959,3 +959,59 @@ function initSparkles() {
     layer.appendChild(dot);
   }
 }
+
+function handleLogin() {
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  if (!email || !password) {
+    showToast('⚠️ กรุณากรอกอีเมลและรหัสผ่าน');
+    return;
+  }
+
+  const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+  if (!gmailPattern.test(email)) {
+    showToast('⚠️ กรุณาใช้อีเมล Gmail');
+    return;
+  }
+
+  // เช็คจาก localStorage (ถ้าไม่มี backend)
+  const users = JSON.parse(localStorage.getItem('mbUsers')) || [];
+  const user  = users.find(u => u.email === email && u.password === password);
+
+  if (!user) {
+    showToast('❌ อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+    return;
+  }
+
+  localStorage.setItem('mbCurrentUser', JSON.stringify(user));
+  showToast('✿ ยินดีต้อนรับกลับมา ' + user.name);
+  setTimeout(() => window.location.href = 'index.html', 1200);
+}
+
+function handleRegister() {
+  const name      = document.getElementById('regName').value.trim();
+  const email     = document.getElementById('regEmail').value.trim();
+  const password  = document.getElementById('regPassword').value.trim();
+  const confirm   = document.getElementById('regConfirm').value.trim();
+
+  if (!name || !email || !password || !confirm) {
+    showToast('⚠️ กรุณากรอกข้อมูลให้ครบ'); return;
+  }
+  if (password !== confirm) {
+    showToast('⚠️ รหัสผ่านไม่ตรงกัน'); return;
+  }
+  if (password.length < 6) {
+    showToast('⚠️ รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร'); return;
+  }
+
+  const users = JSON.parse(localStorage.getItem('mbUsers')) || [];
+  if (users.find(u => u.email === email)) {
+    showToast('⚠️ อีเมลนี้ถูกใช้ไปแล้ว'); return;
+  }
+
+  users.push({ name, email, password });
+  localStorage.setItem('mbUsers', JSON.stringify(users));
+  showToast('✿ สมัครสมาชิกสำเร็จ!');
+  setTimeout(() => window.location.href = 'login.html', 1200);
+}
