@@ -7,7 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}</style>
+<style>
+.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}
+/* ── LOGIN BUTTON ── */
+.login-btn{font-family:'Jost',sans-serif;font-size:11px;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:#6b5555;text-decoration:none;padding:7px 16px;border:1px solid rgba(243,198,206,0.6);border-radius:20px;transition:all 0.25s ease;white-space:nowrap;cursor:pointer;background:none;}
+.login-btn:hover{background:#fde8ec;color:#e8aeb7;border-color:#f3c6ce;}
+@media(max-width:768px){.login-btn{display:none;}}
+</style>
 </head>
 <body class="home-page fade-in">
 <div class="sparkle-layer" id="sparkleLayer"></div>
@@ -18,9 +24,7 @@
   <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div></div>
   <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
     <div class="cart-total"><span class="cart-total-label">ยอดรวมทั้งหมด</span><span class="cart-total-amount" id="cartTotal">฿0</span></div>
-    <button class="checkout-btn" onclick="goToCheckout()">
-  ยืนยันคำสั่งซื้อ
-</button>
+    <button class="checkout-btn" onclick="goToCheckout()">ยืนยันคำสั่งซื้อ</button>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -34,6 +38,7 @@
   <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
   <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
   <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+  <a href="login.html" onclick="closeMobileNav()" id="mobileLoginBtn">Login</a>
 </div>
 
 <header>
@@ -53,6 +58,9 @@
   </nav>
 
   <div class="header-actions">
+    <!-- ปุ่ม Login / ชื่อ user -->
+    <a href="login.html" class="login-btn" id="loginBtn">Login</a>
+
     <button class="cart-icon-btn" onclick="openCart()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
@@ -71,11 +79,13 @@
 <section class="hero">
   <div class="hero-blob b1"></div><div class="hero-blob b2"></div><div class="hero-blob b3"></div><div class="hero-blob b4"></div>
   <div class="overlay"></div>
-<div class="hero-box">
-  <a href="collection.html" class="shop-button-img">
-   <img src="pic/shop.png" alt="Shop Now">
-  </a>
-</div>
+  <div class="hero-box">
+    <p>Discover your signature scent with our exclusive perfume collection</p>
+    <a href="collection.html" class="shop-button-img">
+     <img src="pic/shop.png" alt="Shop Now">
+    </a>
+    <div class="hero-ornament bottom-ornament">— &ensp; Maison Blush &ensp; —</div>
+  </div>
 </section>
 
 <div class="scent-strip">
@@ -97,7 +107,35 @@
   <div class="logo footer-logo">Maison Blush</div>
   <p>© 2026 Maison Blush. All rights reserved.</p>
 </footer>
-<script src="script.js"></script>
 
+<script src="script.js"></script>
+<script>
+(function() {
+  const u = JSON.parse(localStorage.getItem('mbCurrentUser'));
+  const btn = document.getElementById('loginBtn');
+  const mobileBtn = document.getElementById('mobileLoginBtn');
+  if (!btn) return;
+  if (u) {
+    // Desktop: แสดงชื่อ กดเพื่อ logout
+    btn.textContent = '✿ ' + u.name;
+    btn.href = '#';
+    btn.onclick = function(e) {
+      e.preventDefault();
+      localStorage.removeItem('mbCurrentUser');
+      location.reload();
+    };
+    // Mobile nav: แสดงชื่อด้วย
+    if (mobileBtn) {
+      mobileBtn.textContent = '✿ ' + u.name + ' (ออกจากระบบ)';
+      mobileBtn.href = '#';
+      mobileBtn.onclick = function(e) {
+        e.preventDefault();
+        localStorage.removeItem('mbCurrentUser');
+        location.reload();
+      };
+    }
+  }
+})();
+</script>
 </body>
 </html>
