@@ -6,7 +6,13 @@
 <title>Maison Blush — Contact</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}</style>
+<style>
+.logo{text-decoration:none!important;border-bottom:none!important;border:none!important;}
+/* ── LOGIN BUTTON ── */
+.login-btn{font-family:'Jost',sans-serif;font-size:11px;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:#6b5555;text-decoration:none;padding:7px 16px;border:1px solid rgba(243,198,206,0.6);border-radius:20px;transition:all 0.25s ease;white-space:nowrap;cursor:pointer;background:none;}
+.login-btn:hover{background:#fde8ec;color:#e8aeb7;border-color:#f3c6ce;}
+@media(max-width:768px){.login-btn{display:none;}}
+</style>
 </head>
 <body class="fade-in">
 <canvas id="petalCanvas"></canvas>
@@ -17,9 +23,7 @@
   <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty">ยังไม่มีสินค้าในตะกร้า 🌸</div></div>
   <div class="cart-footer-panel" id="cartFooterPanel" style="display:none">
     <div class="cart-total"><span class="cart-total-label">ยอดรวมทั้งหมด</span><span class="cart-total-amount" id="cartTotal">฿0</span></div>
-    <button class="checkout-btn" onclick="goToCheckout()">
-  ยืนยันคำสั่งซื้อ
-</button>
+    <button class="checkout-btn" onclick="goToCheckout()">ยืนยันคำสั่งซื้อ</button>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -33,12 +37,14 @@
   <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
   <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
   <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+  <a href="login.html" onclick="closeMobileNav()" id="mobileLoginBtn">Login</a>
 </div>
 
 <header>
   <a class="logo" href="index.html">
-  <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
-  Maison Blush
+    <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+    Maison Blush
+  </a>
   <nav id="desktopNav">
     <a href="index.html">Home</a>
     <a href="collection.html">Collection</a>
@@ -49,6 +55,7 @@
     <a href="team.html">ผู้จัดทำ</a>
   </nav>
   <div class="header-actions">
+    <a href="login.html" class="login-btn" id="loginBtn">Login</a>
     <button class="cart-icon-btn" onclick="openCart()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       <span class="cart-badge" id="cartBadge">0</span>
@@ -57,114 +64,94 @@
   </div>
 </header>
 
-<!-- ═══ CONTACT — ช่องทางติดต่อ ═══ -->
+<!-- ═══ CONTACT ═══ -->
 <section class="support" id="contact" style="padding-top:120px;min-height:80vh">
   <div class="section-label reveal" style="text-align:center">— ติดต่อเรา —</div>
   <h2 class="section-title reveal" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:400;">Contact Us</h2>
-  <div class="divider-botanical reveal" style="justify-content:center;margin-bottom:50px">
-  </div>
+  <div class="divider-botanical reveal" style="justify-content:center;margin-bottom:50px"></div>
 
-<div style="max-width:680px;margin:0 auto">
-  <div class="contact-card reveal" style="margin-bottom:30px">
-    <h3>ช่องทางติดต่อ Maison Blush</h3>
+  <div style="max-width:680px;margin:0 auto">
+    <div class="contact-card reveal" style="margin-bottom:30px">
+      <h3>ช่องทางติดต่อ Maison Blush</h3>
 
-<div class="contact-item">
-  <div class="contact-icon">
-    <img src="pic/chat.jpg" alt="chat">
-  </div>
-  <div class="contact-info">
-    <div class="contact-label">Live Chat</div>
-    <div class="contact-value">10:00 – 18:00 น.</div>
-  </div>
-</div>
+      <div class="contact-item">
+        <div class="contact-icon"><img src="pic/chat.jpg" alt="chat"></div>
+        <div class="contact-info">
+          <div class="contact-label">Live Chat</div>
+          <div class="contact-value">10:00 – 18:00 น.</div>
+        </div>
+      </div>
 
-<div class="contact-item">
-  <div class="contact-icon">
-    <img src="pic/gmail.jpg" alt="email">
-  </div>
-  <div class="contact-info">
-    <div class="contact-label">อีเมล</div>
-    <div class="contact-value">maisonblush@gmail.com</div>
-  </div>
-</div>
+      <div class="contact-item">
+        <div class="contact-icon"><img src="pic/gmail.jpg" alt="email"></div>
+        <div class="contact-info">
+          <div class="contact-label">อีเมล</div>
+          <div class="contact-value">maisonblush@gmail.com</div>
+        </div>
+      </div>
 
-<div class="contact-item">
-  <div class="contact-icon">
-    <img src="pic/phone.jpg" alt="phone">
-  </div>
-  <div class="contact-info">
-    <div class="contact-label">โทรศัพท์</div>
-    <div class="contact-value">02-XXX-XXXX</div>
-  </div>
-</div>
+      <div class="contact-item">
+        <div class="contact-icon"><img src="pic/phone.jpg" alt="phone"></div>
+        <div class="contact-info">
+          <div class="contact-label">โทรศัพท์</div>
+          <div class="contact-value">02-XXX-XXXX</div>
+        </div>
+      </div>
 
-<div class="contact-item">
-  <div class="contact-icon">
-    <img src="pic/line.jpg" alt="line">
-  </div>
-  <div class="contact-info">
-    <div class="contact-label">LINE Official</div>
-    <div class="contact-value">@maisonblush</div>
-  </div>
-</div>
+      <div class="contact-item">
+        <div class="contact-icon"><img src="pic/line.jpg" alt="line"></div>
+        <div class="contact-info">
+          <div class="contact-label">LINE Official</div>
+          <div class="contact-value">@maisonblush</div>
+        </div>
+      </div>
 
-<div class="contact-item">
-  <div class="contact-icon">
-    <img src="pic/location.jpg" alt="location">
-  </div>
-  <div class="contact-info">
-    <div class="contact-label">ที่อยู่</div>
-    <div class="contact-value">123 Maison Blush, Bangkok 10110, Thailand</div>
-  </div>
-</div>
+      <div class="contact-item">
+        <div class="contact-icon"><img src="pic/location.jpg" alt="location"></div>
+        <div class="contact-info">
+          <div class="contact-label">ที่อยู่</div>
+          <div class="contact-value">123 Maison Blush, Bangkok 10110, Thailand</div>
+        </div>
+      </div>
 
-<div class="contact-item" style="border:none">
-  <div class="contact-icon">
-    <img src="pic/time.jpg" alt="time">
+      <div class="contact-item" style="border:none">
+        <div class="contact-icon"><img src="pic/time.jpg" alt="time"></div>
+        <div class="contact-info">
+          <div class="contact-label">เวลาทำการ</div>
+          <div class="contact-value">จันทร์ – ศุกร์: 10:00 – 18:00 น.</div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="review-form-wrap reveal">
+        <h3 class="review-form-title">ส่งข้อความหาเรา</h3>
+        <div class="form-group">
+          <label>ชื่อของคุณ</label>
+          <input type="text" id="contactName" class="form-input" placeholder="ชื่อ-นามสกุล">
+        </div>
+        <div class="form-group">
+          <label>อีเมล</label>
+          <input type="email" id="contactEmail" class="form-input" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>หัวข้อ</label>
+          <select id="contactTopic" class="form-input">
+            <option value="">เลือกหัวข้อ</option>
+            <option>สอบถามสินค้า</option>
+            <option>ติดตามคำสั่งซื้อ</option>
+            <option>คืนสินค้า/เปลี่ยนสินค้า</option>
+            <option>ข้อเสนอแนะ</option>
+            <option>อื่นๆ</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ข้อความ</label>
+          <textarea id="contactMessage" class="form-textarea" placeholder="พิมพ์ข้อความของคุณที่นี่..." style="height:130px"></textarea>
+        </div>
+        <button class="submit-review" onclick="submitContact()">ส่งข้อความ ✿</button>
+      </div>
+    </div>
   </div>
-  <div class="contact-info">
-    <div class="contact-label">เวลาทำการ</div>
-    <div class="contact-value">จันทร์ – ศุกร์: 10:00 – 18:00 น.</div>
-  </div>
-</div>
-
-    <!-- Contact Form -->
-   <div class="review-form-wrap reveal">
-  <h3 class="review-form-title">ส่งข้อความหาเรา</h3>
-
-  <div class="form-group">
-    <label>ชื่อของคุณ</label>
-    <input type="text" id="contactName" class="form-input" placeholder="ชื่อ-นามสกุล">
-  </div>
-
-  <div class="form-group">
-    <label>อีเมล</label>
-    <input type="email" id="contactEmail" class="form-input" placeholder="your@email.com">
-  </div>
-
-  <div class="form-group">
-    <label>หัวข้อ</label>
-    <select id="contactTopic" class="form-input">
-      <option value="">เลือกหัวข้อ</option>
-      <option>สอบถามสินค้า</option>
-      <option>ติดตามคำสั่งซื้อ</option>
-      <option>คืนสินค้า/เปลี่ยนสินค้า</option>
-      <option>ข้อเสนอแนะ</option>
-      <option>อื่นๆ</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label>ข้อความ</label>
-    <textarea id="contactMessage" class="form-textarea"
-      placeholder="พิมพ์ข้อความของคุณที่นี่..." style="height:130px"></textarea>
-  </div>
-
-  <button class="submit-review" onclick="submitContact()">
-    ส่งข้อความ ✿
-  </button>
-
-</div>
 </section>
 
 <footer>
@@ -175,6 +162,33 @@
   <div class="logo footer-logo">Maison Blush</div>
   <p>© 2026 Maison Blush. All rights reserved.</p>
 </footer>
+
 <script src="script.js"></script>
+<script>
+(function() {
+  const u = JSON.parse(localStorage.getItem('mbCurrentUser'));
+  const btn = document.getElementById('loginBtn');
+  const mobileBtn = document.getElementById('mobileLoginBtn');
+  if (!btn) return;
+  if (u) {
+    btn.textContent = '✿ ' + u.name;
+    btn.href = '#';
+    btn.onclick = function(e) {
+      e.preventDefault();
+      localStorage.removeItem('mbCurrentUser');
+      location.reload();
+    };
+    if (mobileBtn) {
+      mobileBtn.textContent = '✿ ' + u.name + ' (ออกจากระบบ)';
+      mobileBtn.href = '#';
+      mobileBtn.onclick = function(e) {
+        e.preventDefault();
+        localStorage.removeItem('mbCurrentUser');
+        location.reload();
+      };
+    }
+  }
+})();
+</script>
 </body>
 </html>
