@@ -1,98 +1,39 @@
-    <!DOCTYPE html>
-    <html lang="th">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Blush — Checkout</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.logo{text-decoration:none;}
+/* ── LOGIN BUTTON ── */
+.login-btn{font-family:'Jost',sans-serif;font-size:11px;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:#6b5555;text-decoration:none;padding:7px 16px;border:1px solid rgba(243,198,206,0.6);border-radius:20px;transition:all 0.25s ease;white-space:nowrap;cursor:pointer;background:none;}
+.login-btn:hover{background:#fde8ec;color:#e8aeb7;border-color:#f3c6ce;}
+@media(max-width:768px){.login-btn{display:none;}}
 
-    <title>Maison Blush — Checkout</title>
+.checkout-container{max-width:900px;margin:140px auto;padding:40px;background:white;border-radius:18px;box-shadow:0 12px 35px rgba(0,0,0,0.08);}
+.checkout-title{font-family:'Cormorant Garamond',serif;font-size:36px;text-align:center;margin-bottom:30px;}
+.checkout-section{margin-bottom:35px;}
+.checkout-section h3{margin-bottom:15px;font-weight:500;}
+.checkout-input{width:100%;padding:12px;margin-bottom:15px;border:1px solid #eee;border-radius:10px;font-family:'Jost',sans-serif;}
+.order-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f3f3f3;}
+.checkout-btn{width:100%;padding:15px;border:none;border-radius:12px;background:#ffd3df;color:white;font-size:16px;cursor:pointer;transition:0.3s;}
+.checkout-btn:hover{background:#f7acbf;}
+.total{text-align:right;font-weight:500;margin-top:15px;}
+</style>
+</head>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=Jost:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<body class="fade-in">
+<canvas id="petalCanvas"></canvas>
 
-    <style>
-        
-.logo {
-  text-decoration: none;
-}
-    .checkout-container{
-    max-width:900px;
-    margin:140px auto;
-    padding:40px;
-    background:white;
-    border-radius:18px;
-    box-shadow:0 12px 35px rgba(0,0,0,0.08);
-    }
-
-    .checkout-title{
-    font-family:'Cormorant Garamond',serif;
-    font-size:36px;
-    text-align:center;
-    margin-bottom:30px;
-    }
-
-    .checkout-section{
-    margin-bottom:35px;
-    }
-
-    .checkout-section h3{
-    margin-bottom:15px;
-    font-weight:500;
-    }
-
-    .checkout-input{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #eee;
-    border-radius:10px;
-    font-family:'Jost',sans-serif;
-    }
-
-    .order-item{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    border-bottom:1px solid #f3f3f3;
-    }
-
-    .checkout-btn{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:12px;
-    background:#ffd3df;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
-    }
-
-    .checkout-btn:hover{
-    background:#f7acbf;
-    }
-
-    .total{
-    text-align:right;
-    font-weight:500;
-    margin-top:15px;
-    }
-
-    </style>
-    </head>
-
-    <body class="fade-in">
-
-    <canvas id="petalCanvas"></canvas>
-
-    <header>
-
+<header>
   <a class="logo" href="index.html">
-  <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
-  Maison Blush
-</a>
-
-    <nav id="desktopNav">
-
+    <img src="pic/Logo SPU SIT_black.png" alt="Maison Blush Logo">
+    Maison Blush
+  </a>
+  <nav id="desktopNav">
     <a href="index.html">Home</a>
     <a href="collection.html">Collection</a>
     <a href="about.html">About</a>
@@ -100,99 +41,58 @@
     <a href="reviews.html">Reviews</a>
     <a href="support.html">Customer Support</a>
     <a href="team.html">ผู้จัดทำ</a>
+  </nav>
+  <div class="header-actions">
+    <a href="login.html" class="login-btn" id="loginBtn">Login</a>
+  </div>
+</header>
 
-    </nav>
-
-    </header>
-
-    <section>
-
-    <div class="checkout-container">
-
+<section>
+  <div class="checkout-container">
     <h2 class="checkout-title">Checkout</h2>
 
-<!-- รายการสินค้า -->
-<div class="checkout-section">
-  <h3>รายการสินค้า</h3>
-  <div id="orderList"></div>
-  <div class="total">
-    รวมทั้งหมด: <span id="orderTotal">฿0</span>
-  </div>
-</div>
-
+    <!-- รายการสินค้า -->
+    <div class="checkout-section">
+      <h3>รายการสินค้า</h3>
+      <div id="orderList"></div>
+      <div class="total">รวมทั้งหมด: <span id="orderTotal">฿0</span></div>
+    </div>
 
     <!-- ที่อยู่ -->
     <div class="checkout-section">
-
-    <h3>ที่อยู่จัดส่ง</h3>
-
-    <input id="shipName" class="checkout-input" placeholder="ชื่อผู้รับ">
-
-    <input 
-  id="shipPhone" 
-  class="checkout-input" 
-  placeholder="เบอร์โทรศัพท์"
-  type="tel"
-  maxlength="10"
-  inputmode="numeric"
-  pattern="[0-9]*"
-  oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
->
-
-    <textarea id="shipAddress" class="checkout-input" placeholder="ที่อยู่จัดส่ง"></textarea>
-
+      <h3>ที่อยู่จัดส่ง</h3>
+      <input id="shipName" class="checkout-input" placeholder="ชื่อผู้รับ">
+      <input id="shipPhone" class="checkout-input" placeholder="เบอร์โทรศัพท์" type="tel" maxlength="10" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
+      <textarea id="shipAddress" class="checkout-input" placeholder="ที่อยู่จัดส่ง"></textarea>
     </div>
-
 
     <!-- การจ่ายเงิน -->
     <div class="checkout-section">
-
-    <h3>วิธีชำระเงิน</h3>
-
-    <select id="paymentMethod" class="checkout-input">
-
-    <option value="">เลือกวิธีชำระเงิน</option>
-    <option>PromptPay</option>
-    <option>โอนผ่านธนาคาร</option>
-    <option>เก็บเงินปลายทาง (COD)</option>
-
-    </select>
-
+      <h3>วิธีชำระเงิน</h3>
+      <select id="paymentMethod" class="checkout-input">
+        <option value="">เลือกวิธีชำระเงิน</option>
+        <option>PromptPay</option>
+        <option>โอนผ่านธนาคาร</option>
+        <option>เก็บเงินปลายทาง (COD)</option>
+      </select>
     </div>
 
-    <button class="checkout-btn" onclick="confirmOrder()">
-    ยืนยันการสั่งซื้อ
-    </button>
+    <button class="checkout-btn" onclick="confirmOrder()">ยืนยันการสั่งซื้อ</button>
+  </div>
+</section>
 
-    </div>
-
-    </section>
-
-
-    <footer>
-
-    <div class="logo footer-logo">Maison Blush</div>
-    <p>© 2026 Maison Blush</p>
-
-    </footer>
+<footer>
+  <div class="logo footer-logo">Maison Blush</div>
+  <p>© 2026 Maison Blush</p>
+</footer>
 
 <!-- ORDER SUCCESS POPUP -->
 <div id="orderSuccess" class="order-success">
-
-<div class="order-box">
-
-<div class="order-icon">˙🍓 ̟ !!</div>
-
-<h2>Order Successful</h2>
-
-<p>
-ขอบคุณที่สั่งซื้อกับ <b>Maison Blush</b><br>
-เราจะจัดส่งสินค้าของคุณเร็วที่สุด ⊹ ࣪ ˖ ໒꒱
-</p>
-
-<button onclick="goHome()" class="success-btn">
-กลับสู่หน้าแรก
-</button>
+  <div class="order-box">
+    <div class="order-icon">˙🍓 ̟ !!</div>
+    <h2>Order Successful</h2>
+    <p>ขอบคุณที่สั่งซื้อกับ <b>Maison Blush</b><br>เราจะจัดส่งสินค้าของคุณเร็วที่สุด ⊹ ࣪ ˖ ໒꒱</p>
+    <button onclick="goHome()" class="success-btn">กลับสู่หน้าแรก</button>
   </div>
 </div>
 
@@ -202,48 +102,49 @@
     <div class="error-icon">⚠️</div>
     <h3>ข้อมูลไม่ครบ</h3>
     <p>กรุณากรอกข้อมูลให้ครบ</p>
-      <p>ทุกช่องก่อนสั่งซื้อ</p>
+    <p>ทุกช่องก่อนสั่งซื้อ</p>
     <button onclick="closeError()" class="error-btn">ตกลง</button>
-
+  </div>
 </div>
 
-</div>
-
-    <script src="script.js"></script>
-
+<script src="script.js"></script>
 <script>
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Get cart items from localStorage
+// แสดงรายการสินค้าจาก cart
+document.addEventListener('DOMContentLoaded', function() {
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  
-  // Render the order list dynamically
-  const orderList = document.getElementById("orderList");
-  const orderTotal = document.getElementById("orderTotal");
-  
+  const orderList = document.getElementById('orderList');
+  const orderTotal = document.getElementById('orderTotal');
   let total = 0;
 
   if (cartItems.length > 0) {
     cartItems.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "order-item";
-      div.innerHTML = `
-        <div>${item.name} × ${item.qty}</div>
-        <div>฿${(item.price * item.qty).toLocaleString()}</div>
-      `;
+      const div = document.createElement('div');
+      div.className = 'order-item';
+      div.innerHTML = `<div>${item.name} × ${item.qty}</div><div>฿${(item.price * item.qty).toLocaleString()}</div>`;
       orderList.appendChild(div);
       total += item.price * item.qty;
     });
-
-    // Update the total price
-    orderTotal.textContent = `฿${total.toLocaleString()}`;
+    orderTotal.textContent = '฿' + total.toLocaleString();
   } else {
-    orderList.innerHTML = `<p>ไม่มีสินค้าภายในตะกร้า</p>`;
+    orderList.innerHTML = '<p>ไม่มีสินค้าภายในตะกร้า</p>';
   }
 });
 
-
+// แสดงชื่อ user / logout
+(function() {
+  const u = JSON.parse(localStorage.getItem('mbCurrentUser'));
+  const btn = document.getElementById('loginBtn');
+  if (!btn) return;
+  if (u) {
+    btn.textContent = '✿ ' + u.name;
+    btn.href = '#';
+    btn.onclick = function(e) {
+      e.preventDefault();
+      localStorage.removeItem('mbCurrentUser');
+      location.reload();
+    };
+  }
+})();
 </script>
-
-    </body>
-    </html>
+</body>
+</html>
