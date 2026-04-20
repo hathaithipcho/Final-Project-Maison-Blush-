@@ -49,7 +49,7 @@ Mobile hamburger navigation
 
 Clone หรือ Download โปรเจกต์
 
-bash   git clone https://github.com/your-username/maison-blush.git
+bash   git clone https://hathaithipcho.github.io/Final-Project-Maison-Blush-/
 
 เปิดไฟล์ index.html ด้วย Browser โดยตรง
 หรือใช้ Live Server Extension ใน VS Code
