@@ -72,6 +72,7 @@ a.logo::after { display:none!important; }
   <a href="reviews.html" onclick="closeMobileNav()">Reviews</a>
   <a href="support.html" onclick="closeMobileNav()">Customer Support</a>
   <a href="team.html" onclick="closeMobileNav()">ผู้จัดทำ</a>
+  <a href="login.html" onclick="closeMobileNav()" id="mobileLoginBtn">Login</a>
 </div>
 
 <header>
@@ -89,6 +90,7 @@ a.logo::after { display:none!important; }
     <a href="team.html">ผู้จัดทำ</a>
   </nav>
   <div class="header-actions">
+    <a href="login.html" class="login-btn" id="loginBtn">Login</a>
     <button class="cart-icon-btn" onclick="openCart()" aria-label="Cart">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
@@ -144,7 +146,7 @@ a.logo::after { display:none!important; }
     <div class="about-text reveal">
       <div class="section-label">— Our Story —</div>
       <h2>About This Project</h2>
-    <p>เว็บไซต์ Maison Blush จัดทำขึ้นเพื่อเป็นส่วนหนึ่งของโครงงานในรายวิชา “ICT12267” <br>โดยนักศึกษากลุ่มนี้ได้ออกแบบและพัฒนาร่วมกันด้วยความตั้งใจ <br>ทั้งนี้ เว็บไซต์นี้เป็นเพียงผลงานเพื่อการศึกษาเท่านั้น ไม่มีวัตถุประสงค์เชิงพาณิชย์<br> และไม่ได้มีการจำหน่ายสินค้าหรือให้บริการจริงแต่อย่างใด จัดทำขึ้นเพื่อส่งประกอบการเรียน<br>และการประเมินผลในรายวิชาเท่านั้น</p>
+    <p>เว็บไซต์ Maison Blush จัดทำขึ้นเพื่อเป็นส่วนหนึ่งของโครงงานในรายวิชา “พัฒนาเว็บไซต์เบื้องต้น” <br>โดยนักศึกษากลุ่มนี้ได้ออกแบบและพัฒนาร่วมกันด้วยความตั้งใจ <br>ทั้งนี้ เว็บไซต์นี้เป็นเพียงผลงานเพื่อการศึกษาเท่านั้น ไม่มีวัตถุประสงค์เชิงพาณิชย์<br> และไม่ได้มีการจำหน่ายสินค้าหรือให้บริการจริงแต่อย่างใด จัดทำขึ้นเพื่อส่งประกอบการเรียน<br>และการประเมินผลในรายวิชาเท่านั้น</p>
       <div class="about-quote">" Scent is the memory we choose to create. "</div>
       <div class="about-mist">
         <span class="mist-dot md1"></span><span class="mist-dot md2"></span>
@@ -178,5 +180,31 @@ a.logo::after { display:none!important; }
 </footer>
 
 <script src="script.js"></script>
+<script>
+(function() {
+  const u = JSON.parse(localStorage.getItem('mbCurrentUser'));
+  const btn = document.getElementById('loginBtn');
+  const mobileBtn = document.getElementById('mobileLoginBtn');
+  if (!btn) return;
+  if (u) {
+    btn.textContent = '✿ ' + u.name;
+    btn.href = '#';
+    btn.onclick = function(e) {
+      e.preventDefault();
+      localStorage.removeItem('mbCurrentUser');
+      location.reload();
+    };
+    if (mobileBtn) {
+      mobileBtn.textContent = '✿ ' + u.name + ' (ออกจากระบบ)';
+      mobileBtn.href = '#';
+      mobileBtn.onclick = function(e) {
+        e.preventDefault();
+        localStorage.removeItem('mbCurrentUser');
+        location.reload();
+      };
+    }
+  }
+})();
+</script>
 </body>
 </html>
